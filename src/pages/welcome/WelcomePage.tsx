@@ -1,11 +1,9 @@
 import {
   Box,
   Button,
-  Chip,
   Divider,
   FormControl,
   FormControlLabel,
-  FormLabel,
   InputLabel,
   MenuItem,
   Radio,
@@ -21,17 +19,14 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { Section } from "./Section";
 import { SectionRow } from "./SectionRow";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-export function WelcomePage() {
+import { CheckboxSectionRow } from "./CheckboxSectionRow";
+import EditIcon from "@mui/icons-material/Edit";
+import { Money } from "../../components/Money";
+
+function UpcomingReservations() {
   const [open, setOpen] = useState(false);
   return (
-    <Stack direction="column" gap={6}>
-      <Stack direction="row" justifyContent="space-between">
-        <Typography variant="h1" color="text.primary">
-          👋 Üdv!
-        </Typography>
-        <Chip label={165} color="primary" icon={<MonetizationOnIcon />} />
-      </Stack>
+    <>
       <Section label="Következő foglalásaim">
         <SectionRow
           onClick={() => console.error("Not implemented")}
@@ -56,7 +51,92 @@ export function WelcomePage() {
       >
         Új foglalás
       </Button>
+      <ReservationDialog
+        open={open}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+      />
+    </>
+  );
+}
 
+function WeeklySchedule() {
+  return (
+    <Section label="Heti beosztásom">
+      <CheckboxSectionRow
+        checked
+        onClick={() => console.error("Not implemented")}
+        title="Hétfő"
+        subtitle="2023. 02. 22."
+        icon={
+          <Stack direction="column" alignItems="center">
+            <Typography fontSize={18} color="white" fontWeight="bold">
+              24
+            </Typography>
+            <Typography fontSize={12} color="white">
+              Febr
+            </Typography>
+          </Stack>
+        }
+      />
+      <CheckboxSectionRow
+        checked={false}
+        onClick={() => console.error("Not implemented")}
+        title="Hétfő"
+        subtitle="2023. 02. 22."
+        icon={
+          <Stack direction="column" alignItems="center">
+            <Typography fontSize={18} color="white" fontWeight="bold">
+              24
+            </Typography>
+            <Typography fontSize={12} color="white">
+              Febr
+            </Typography>
+          </Stack>
+        }
+      />
+      <CheckboxSectionRow
+        checked
+        onClick={() => console.error("Not implemented")}
+        title="Hétfő"
+        subtitle="2023. 02. 22."
+        icon={
+          <Stack direction="column" alignItems="center">
+            <Typography fontSize={18} color="white" fontWeight="bold">
+              24
+            </Typography>
+            <Typography fontSize={12} color="white">
+              Febr
+            </Typography>
+          </Stack>
+        }
+      />
+    </Section>
+  );
+}
+
+export function WelcomePage() {
+  return (
+    <Stack direction="column" gap={6}>
+      <Stack direction="row" justifyContent="space-between">
+        <Typography variant="h1" color="text.primary">
+          👋 Üdv!
+        </Typography>
+        <Money />
+      </Stack>
+      {
+        //<UpcomingReservations />
+      }
+      <WeeklySchedule />
+
+      <MyCars />
+    </Stack>
+  );
+}
+
+function MyCars() {
+  return (
+    <>
       <Section label="Autóim">
         <SectionRow
           onClick={() => console.error("Not implemented")}
@@ -65,20 +145,10 @@ export function WelcomePage() {
           icon={<DirectionsCarIcon sx={{ color: "white" }} fontSize="large" />}
         />
       </Section>
-      <Button
-        variant="text"
-        onClick={() => setOpen(true)}
-        startIcon={<EventNoteIcon />}
-      >
+      <Button variant="text" onClick={() => {}} startIcon={<EditIcon />}>
         Autoim kezelése
       </Button>
-
-      <ReservationDialog
-        open={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-      />
-    </Stack>
+    </>
   );
 }
 
