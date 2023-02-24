@@ -9,8 +9,10 @@ import {
 import {
   Box,
   ButtonBase,
+  Chip,
   Container,
   CssBaseline,
+  IconButton,
   Stack,
   Tab,
   Tabs,
@@ -25,6 +27,8 @@ import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import GarageIcon from "@mui/icons-material/Garage";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { useNavigate } from "react-router";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 function MainLayout() {
   return (
@@ -42,8 +46,9 @@ function HomePage() {
   );
 }
 
-function ParingLevelPage() {
+function ParkingLevelPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   if (!id) {
     return <h1>404</h1>;
   }
@@ -69,7 +74,12 @@ function ParingLevelPage() {
   const rightCol = spaces.slice(spaces.length / 2, spaces.length);
   return (
     <Stack height="100%">
-      <Typography variant="h1">{id}</Typography>
+      <Typography variant="h1">
+        <IconButton onClick={() => navigate("/pwa/parking")}>
+          <ArrowBackIosNewIcon sx={{ color: "white" }} />
+        </IconButton>{" "}
+        {id}
+      </Typography>
       <Typography
         color="#595959"
         variant="h6"
@@ -178,22 +188,60 @@ function ParingLevelPage() {
   );
 }
 
+function Car({ onClick, car }: { onClick: () => void; car: string }) {
+  return (
+    <Stack
+      onClick={onClick}
+      component={ButtonBase}
+      alignItems="center"
+      sx={{
+        borderRadius: 2,
+        border: "1px solid",
+        borderColor: "primary.main",
+        p: 2,
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundImage: `url('/cars/${car}')`,
+        }}
+      ></Box>
+      <Typography variant="h6" fontSize={14} fontWeight={600}>
+        Ferrari GT
+      </Typography>
+    </Stack>
+  );
+}
+
 function GamePage() {
   const { tab } = useParams();
   const navigate = useNavigate();
-  const cars = [
+  /*const cars = [
     "tdrc01_car01_b.png",
     "tdrc01_car01_e.png",
     "tdrc01_car01_f.png",
-  ];
+  ];*/
+  const cars: string[] = [];
   function setTab(val: string) {
     navigate("/pwa/game/" + val);
   }
   function handleCarChange(car: string) {}
+  function handleCarBuy(car: string) {}
 
   return (
     <Stack m={-4} sx={{ height: "calc(100% + 4rem)", gap: 2 }}>
+      <Typography variant="h1" pt={4} pl={3}>
+        🕹 Játék autók
+      </Typography>
       <Tabs
+        sx={{ flexShrink: 0 }}
         value={tab}
         onChange={(_, value) => setTab(value)}
         variant="fullWidth"
@@ -215,47 +263,43 @@ function GamePage() {
       </Tabs>
 
       {tab === "garage" && (
-        <Box
-          sx={{
-            p: 2,
-            display: "grid",
-            height: "100%",
-            gap: 2,
-            gridTemplateColumns: "1fr 1fr",
-            gridTemplateRows: "repeat(5, 1fr)",
-          }}
-        >
-          {cars.map((car) => (
-            <Stack
-              onClick={() => handleCarChange(car)}
-              key={car}
-              component={ButtonBase}
-              alignItems="center"
-              sx={{
-                borderRadius: 2,
-                border: "1px solid",
-                borderColor: "primary.main",
-                p: 2,
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundSize: "contain",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  backgroundImage: `url('/cars/${car}')`,
-                }}
-              ></Box>
-              <Typography variant="h6" fontSize={14} fontWeight={600}>
-                Ferrari GT
+        <>
+          {cars.length === 0 && (
+            <Stack justifyContent="center" gap={2} p={2}>
+              <Typography variant="h3" textAlign="center">
+                Még nincs játékautód
+              </Typography>
+              <Typography variant="h5" textAlign="center">
+                Ha lemondasz mások javára a parkolóhelyedről, azzal tokeneket
+                gyűjthetsz, melyeket beválthatsz játékautókra. Ezek az autók
+                megjelennek a parkoló térképen, és a toplistán is.
               </Typography>
             </Stack>
+          )}
+          <Box
+            sx={{
+              p: 2,
+              display: "grid",
+              height: "100%",
+              gap: 2,
+              gridTemplateColumns: "1fr 1fr",
+              gridTemplateRows: "repeat(5, 1fr)",
+            }}
+          >
+            {cars.map((car) => (
+              <Car key={car} onClick={() => handleCarChange(car)} car={car} />
+            ))}
+          </Box>
+        </>
+      )}
+
+      {tab === "shop" && (
+        <Stack p={2}>
+          <Chip label={165} color="primary" icon={<MonetizationOnIcon />} />
+          {cars.map((car) => (
+            <Car key={car} onClick={() => handleCarBuy(car)} car={car} />
           ))}
-        </Box>
+        </Stack>
       )}
     </Stack>
   );
@@ -275,7 +319,7 @@ function App() {
             <Route path="settings" element={<WelcomePage />} />
             <Route path="parking" element={<ParkingPage />} />
             <Route path="game/:tab" element={<GamePage />} />
-            <Route path="levels/:id" element={<ParingLevelPage />} />
+            <Route path="levels/:id" element={<ParkingLevelPage />} />
           </Route>
         </Routes>
       </ThemeProvider>

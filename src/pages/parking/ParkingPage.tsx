@@ -10,7 +10,7 @@ export function ParkingPage() {
 
   return (
     <Stack direction="column">
-      <Typography variant="h1">Parkoló szintek</Typography>
+      <Typography variant="h1">🏢 Parkoló szintek</Typography>
 
       <Section label=" ">
         {levels.map((level) => (
