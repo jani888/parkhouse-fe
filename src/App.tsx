@@ -4,7 +4,7 @@ import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import { PwaLayout } from "./layout/PwaLayout";
 import { WelcomePage } from "./pages/welcome/WelcomePage";
-import { Global } from "@emotion/react";
+import { ParkingPage } from "./pages/parking/ParkingPage";
 
 function MainLayout() {
   return (
@@ -34,7 +34,7 @@ function App() {
           <Route path="/pwa" element={<PwaLayout />}>
             <Route path="home" element={<WelcomePage />} />
             <Route path="settings" element={<WelcomePage />} />
-            <Route path="parking" element={<WelcomePage />} />
+            <Route path="parking" element={<ParkingPage />} />
           </Route>
         </Routes>
       </ThemeProvider>

@@ -69,7 +69,7 @@ function ReservationDialog({
       onClose={onClose}
       onOpen={onOpen}
       open={open}
-      disableSwipeToOpen=g{false}
+      disableSwipeToOpen={false}
       PaperProps={{
         sx: {
           borderTopLeftRadius: 12,
