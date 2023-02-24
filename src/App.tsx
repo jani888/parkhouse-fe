@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import {
-  Box,
   Button,
   Container,
   IconButton,
