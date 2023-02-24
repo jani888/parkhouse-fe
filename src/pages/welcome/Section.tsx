@@ -11,7 +11,7 @@ export function Section({
   return (
     <Stack gap={2} direction="column" width="100%">
       <Typography variant="h2">{label}</Typography>
-      <Stack direction="row" width="100%">
+      <Stack direction="column" gap={2} width="100%">
         {children}
       </Stack>
     </Stack>
