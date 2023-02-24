@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter,
   Outlet,
@@ -8,9 +8,12 @@ import {
 } from "react-router-dom";
 import {
   Box,
+  ButtonBase,
   Container,
   CssBaseline,
   Stack,
+  Tab,
+  Tabs,
   ThemeProvider,
   Typography,
 } from "@mui/material";
@@ -19,6 +22,9 @@ import { PwaLayout } from "./layout/PwaLayout";
 import { WelcomePage } from "./pages/welcome/WelcomePage";
 import { ParkingPage } from "./pages/parking/ParkingPage";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import GarageIcon from "@mui/icons-material/Garage";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import { useNavigate } from "react-router";
 
 function MainLayout() {
   return (
@@ -172,6 +178,89 @@ function ParingLevelPage() {
   );
 }
 
+function GamePage() {
+  const { tab } = useParams();
+  const navigate = useNavigate();
+  const cars = [
+    "tdrc01_car01_b.png",
+    "tdrc01_car01_e.png",
+    "tdrc01_car01_f.png",
+  ];
+  function setTab(val: string) {
+    navigate("/pwa/game/" + val);
+  }
+  function handleCarChange(car: string) {}
+
+  return (
+    <Stack m={-4} sx={{ height: "calc(100% + 4rem)", gap: 2 }}>
+      <Tabs
+        value={tab}
+        onChange={(_, value) => setTab(value)}
+        variant="fullWidth"
+      >
+        <Tab
+          iconPosition="start"
+          value="garage"
+          sx={{ color: "white" }}
+          icon={<GarageIcon />}
+          label="Garázs"
+        />
+        <Tab
+          iconPosition="start"
+          value="shop"
+          sx={{ color: "white" }}
+          icon={<LocalOfferIcon />}
+          label="Autókereskedő"
+        />
+      </Tabs>
+
+      {tab === "garage" && (
+        <Box
+          sx={{
+            p: 2,
+            display: "grid",
+            height: "100%",
+            gap: 2,
+            gridTemplateColumns: "1fr 1fr",
+            gridTemplateRows: "repeat(5, 1fr)",
+          }}
+        >
+          {cars.map((car) => (
+            <Stack
+              onClick={() => handleCarChange(car)}
+              key={car}
+              component={ButtonBase}
+              alignItems="center"
+              sx={{
+                borderRadius: 2,
+                border: "1px solid",
+                borderColor: "primary.main",
+                p: 2,
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  backgroundImage: `url('/cars/${car}')`,
+                }}
+              ></Box>
+              <Typography variant="h6" fontSize={14} fontWeight={600}>
+                Ferrari GT
+              </Typography>
+            </Stack>
+          ))}
+        </Box>
+      )}
+    </Stack>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -185,6 +274,7 @@ function App() {
             <Route path="home" element={<WelcomePage />} />
             <Route path="settings" element={<WelcomePage />} />
             <Route path="parking" element={<ParkingPage />} />
+            <Route path="game/:tab" element={<GamePage />} />
             <Route path="levels/:id" element={<ParingLevelPage />} />
           </Route>
         </Routes>
