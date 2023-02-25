@@ -16,6 +16,8 @@ export function GamePage() {
     "tdrc01_car01_e.png",
     "tdrc01_car01_f.png",
     "tdrc01_car03_a.png",
+    "tdrc01_car03_c.png",
+    "tdrc01_car03_d.png",
   ];
 
   function setTab(val: string) {
@@ -85,11 +87,22 @@ export function GamePage() {
       )}
 
       {tab === "shop" && (
-        <Stack p={2}>
+        <Stack height="100%" p={2}>
           <Money />
-          {cars.map((car) => (
-            <Car key={car} onClick={() => handleCarBuy(car)} car={car} />
-          ))}
+          <Box
+            sx={{
+              p: 2,
+              display: "grid",
+              height: "100%",
+              gap: 2,
+              gridTemplateColumns: "1fr 1fr",
+              gridTemplateRows: "repeat(5, 1fr)",
+            }}
+          >
+            {cars.map((car) => (
+              <Car key={car} onClick={() => handleCarBuy(car)} car={car} />
+            ))}
+          </Box>
         </Stack>
       )}
     </Stack>

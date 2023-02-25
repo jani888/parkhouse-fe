@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 
 export function WelcomePage() {
   const navigate = useNavigate();
-  const hasFixedSpace = false;
+  const hasFixedSpace = true;
   return (
     <Stack direction="column" gap={6}>
       <Stack direction="row" gap={1} alignItems="center">
