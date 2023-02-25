@@ -18,6 +18,7 @@ import {
 import { useMutation } from "@apollo/client";
 import {
   ReservationType,
+  useFreeSpacesQuery,
   useMakeReservationMutation,
   useMakeResignationMutation,
   useMyCarsQuery,
@@ -40,8 +41,13 @@ export function ReservationDialog({
   const [makeReservation, { loading, data: reservation }] =
     useMakeReservationMutation();
   const { data: cars } = useMyCarsQuery();
+  const { data: freeSpaces } = useFreeSpacesQuery({
+    variables: {
+      date: getDate(),
+    },
+  });
 
-  const onlyWaitListSpaceAvailable = true;
+  const onlyWaitListSpaceAvailable = freeSpaces?.freeParkingSpaces === 0;
 
   function getDate() {
     switch (dateType) {
@@ -273,25 +279,28 @@ export function ReservationDialog({
             </Select>
           </FormControl>
 
-          {onlyWaitListSpaceAvailable && (
-            <Typography
-              mt="auto"
-              variant="body2"
-              fontSize={12}
-              fontWeight={600}
-              color="#242424"
-              textAlign="center"
-            >
-              A kiválasztott időpontban már nincs szabad hely, de feliratkozhat
-              a várólistára.
-            </Typography>
-          )}
+          <Typography
+            mt="auto"
+            variant="body2"
+            fontSize={12}
+            fontWeight={600}
+            color="#242424"
+            textAlign="center"
+          >
+            {onlyWaitListSpaceAvailable ? (
+              <p>
+                ( A kiválasztott időpontban már nincs szabad hely, de
+                feliratkozhat a várólistára. )
+              </p>
+            ) : (
+              <p>Szabad helyek: {freeSpaces?.freeParkingSpaces}</p>
+            )}
+          </Typography>
 
           <Button
             onClick={handleReservation}
             variant="contained"
             color={onlyWaitListSpaceAvailable ? "warning" : "primary"}
-            sx={{ mt: onlyWaitListSpaceAvailable ? undefined : "auto" }}
           >
             {onlyWaitListSpaceAvailable
               ? "Feliratkozás várólistára"

@@ -303,7 +303,7 @@ export type ParkingLevelQueryVariables = Exact<{
 }>;
 
 
-export type ParkingLevelQuery = { __typename: 'Query', level: { __typename: 'Level', id: string, label: string, spaces: Array<{ __typename: 'ParkingSpace', id: string, label: string, currentStatus: ParkingSpaceStatus }> } };
+export type ParkingLevelQuery = { __typename: 'Query', level: { __typename: 'Level', id: string, label: string, spaces: Array<{ __typename: 'ParkingSpace', id: string, label: string, currentStatus: ParkingSpaceStatus, owner?: { __typename: 'User', name: string, selectedGameCar?: { __typename: 'GameCar', image: string } | null } | null, reservations?: Array<{ __typename: 'Reservation', user: { __typename: 'User', selectedGameCar?: { __typename: 'GameCar', image: string } | null } }> | null }> } };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -314,6 +314,13 @@ export type MyReservationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MyReservationsQuery = { __typename: 'Query', myReservations: Array<{ __typename: 'Reservation', id: string, date: any, parkingSpace: { __typename: 'ParkingSpace', label: string, level: { __typename: 'Level', label: string } } }> };
+
+export type FreeSpacesQueryVariables = Exact<{
+  date: Scalars['DateTime'];
+}>;
+
+
+export type FreeSpacesQuery = { __typename: 'Query', freeParkingSpaces?: number | null };
 
 export type MakeReservationMutationVariables = Exact<{
   date: Scalars['DateTime'];
@@ -675,6 +682,19 @@ export const ParkingLevelDocument = gql`
       id
       label
       currentStatus
+      owner {
+        name
+        selectedGameCar {
+          image
+        }
+      }
+      reservations {
+        user {
+          selectedGameCar {
+            image
+          }
+        }
+      }
     }
   }
 }
@@ -786,6 +806,39 @@ export function useMyReservationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type MyReservationsQueryHookResult = ReturnType<typeof useMyReservationsQuery>;
 export type MyReservationsLazyQueryHookResult = ReturnType<typeof useMyReservationsLazyQuery>;
 export type MyReservationsQueryResult = Apollo.QueryResult<MyReservationsQuery, MyReservationsQueryVariables>;
+export const FreeSpacesDocument = gql`
+    query freeSpaces($date: DateTime!) {
+  freeParkingSpaces(date: $date)
+}
+    `;
+
+/**
+ * __useFreeSpacesQuery__
+ *
+ * To run a query within a React component, call `useFreeSpacesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFreeSpacesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFreeSpacesQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useFreeSpacesQuery(baseOptions: Apollo.QueryHookOptions<FreeSpacesQuery, FreeSpacesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FreeSpacesQuery, FreeSpacesQueryVariables>(FreeSpacesDocument, options);
+      }
+export function useFreeSpacesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FreeSpacesQuery, FreeSpacesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FreeSpacesQuery, FreeSpacesQueryVariables>(FreeSpacesDocument, options);
+        }
+export type FreeSpacesQueryHookResult = ReturnType<typeof useFreeSpacesQuery>;
+export type FreeSpacesLazyQueryHookResult = ReturnType<typeof useFreeSpacesLazyQuery>;
+export type FreeSpacesQueryResult = Apollo.QueryResult<FreeSpacesQuery, FreeSpacesQueryVariables>;
 export const MakeReservationDocument = gql`
     mutation makeReservation($date: DateTime!, $type: ReservationType!, $carId: ID!) {
   makeReservation(date: $date, type: $type, carId: $carId) {

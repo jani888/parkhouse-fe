@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import GarageIcon from "@mui/icons-material/Garage";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import React from "react";
 import { Car } from "./Car";
@@ -16,6 +17,37 @@ import {
   useSelectGameCarMutation,
 } from "../../generated/graphql";
 import { Money } from "../../components/Money";
+
+function LeaderboardItem({
+  rank,
+  name,
+  score,
+  avatar,
+}: {
+  rank: number;
+  name: string;
+  score: number;
+  avatar: string;
+}) {
+  return (
+    <Stack
+      direction="row"
+      alignItems="center"
+      gap={2}
+      sx={{ borderRadius: 3, p: 2 }}
+      className={rank === 1 ? "primary-gradient" : ""}
+    >
+      <Avatar src={avatar} variant="rounded" />
+      <Stack>
+        <Typography variant="h2">{name}</Typography>
+        <Typography variant="h4">{score} pont</Typography>
+      </Stack>
+      <Typography ml="auto" variant="h1">
+        {rank}.
+      </Typography>
+    </Stack>
+  );
+}
 
 export function GamePage() {
   const { tab } = useParams();
@@ -70,7 +102,7 @@ export function GamePage() {
         sx={{ flexShrink: 0 }}
         value={tab}
         onChange={(_, value) => setTab(value)}
-        variant="fullWidth"
+        variant="scrollable"
       >
         <Tab
           iconPosition="start"
@@ -78,6 +110,13 @@ export function GamePage() {
           sx={{ color: "white" }}
           icon={<GarageIcon />}
           label="Garázs"
+        />
+        <Tab
+          iconPosition="start"
+          value="leaderboard"
+          sx={{ color: "white" }}
+          icon={<EmojiEventsIcon />}
+          label="Heti Toplista"
         />
         <Tab
           iconPosition="start"
@@ -146,6 +185,29 @@ export function GamePage() {
               />
             ))}
           </Box>
+        </Stack>
+      )}
+
+      {tab === "leaderboard" && (
+        <Stack gap={2} p={2}>
+          <LeaderboardItem
+            avatar="https://scontent-vie1-1.xx.fbcdn.net/v/t31.18172-1/19467798_1964562663773890_8673696812624405232_o.jpg?stp=c0.0.480.480a_dst-jpg_p480x480&_nc_cat=111&ccb=1-7&_nc_sid=7206a8&_nc_ohc=y9nWJ2HAxBwAX8uHO00&_nc_ht=scontent-vie1-1.xx&oh=00_AfDs_TFG0MnEFApzfzV0Jg2awuFinOpqAOibU4fcF0cFZg&oe=6421E40A"
+            name="Kende Zoltán"
+            score={165}
+            rank={1}
+          />
+          <LeaderboardItem
+            avatar="https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/240454476_1543540892667041_2141766638032146073_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=XizgxOH1DjYAX9LHo_I&_nc_ht=scontent-vie1-1.xx&oh=00_AfCAJFfOevmYCh0U1Pef2GHek3ulFbKQ51StxyIZ2w8R8Q&oe=63FF206C"
+            name="Kostyál Bálint"
+            score={140}
+            rank={2}
+          />
+          <LeaderboardItem
+            avatar="https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/287323644_5660988197264885_5986812943244076327_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=sbUY6uyMLj8AX-WJ_XY&_nc_ht=scontent-vie1-1.xx&oh=00_AfCfu-dxAsPU_iz4A7ojXdC-obkORbbnPKcO35V4vuEigQ&oe=63FF989A"
+            name="Hidvégi János"
+            score={120}
+            rank={3}
+          />
         </Stack>
       )}
     </Stack>

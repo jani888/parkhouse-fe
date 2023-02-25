@@ -12,8 +12,6 @@ export function UpcomingReservations() {
   const navigate = useNavigate();
   const { data } = useMyReservationsQuery();
   const [open, setOpen] = useState(false);
-  const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
-  const afterTomorrow = new Date(new Date().setDate(new Date().getDate() + 2));
   return (
     <>
       <Section label="Következő foglalásaim">

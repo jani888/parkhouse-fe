@@ -146,7 +146,11 @@ export function ParkingLevelPage() {
               sx={{
                 background:
                   space.currentStatus !== "FREE"
-                    ? `url('/cars/default_car.png')`
+                    ? `url('/cars/${
+                        space.reservations?.[0]?.user.selectedGameCar?.image ??
+                        space.owner?.selectedGameCar?.image ??
+                        "default_car.png"
+                      }')`
                     : undefined,
                 backgroundRepeat: "no-repeat",
                 opacity: ["FREE", "OCCUPIED"].includes(space.currentStatus)
@@ -186,7 +190,11 @@ export function ParkingLevelPage() {
               sx={{
                 background:
                   space.currentStatus !== "FREE"
-                    ? `url('/cars/default_car.png')`
+                    ? `url('/cars/${
+                        space.reservations?.[0]?.user.selectedGameCar?.image ??
+                        space.owner?.selectedGameCar?.image ??
+                        "default_car.png"
+                      }')`
                     : undefined,
                 backgroundRepeat: "no-repeat",
                 opacity: ["FREE", "OCCUPIED"].includes(space.currentStatus)

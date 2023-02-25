@@ -16,6 +16,19 @@ query parkingLevel($id: ID!) {
             id
             label
             currentStatus
+            owner {
+                name
+                selectedGameCar {
+                    image
+                }
+            }
+            reservations {
+                user {
+                    selectedGameCar {
+                        image
+                    }
+                }
+            }
         }
     }
 }

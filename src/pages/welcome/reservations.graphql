@@ -21,6 +21,10 @@ query myCars {
     }
 }
 
+query freeSpaces($date: DateTime!){
+    freeParkingSpaces(date: $date)
+}
+
 mutation makeReservation($date: DateTime!, $type: ReservationType!, $carId: ID!){
     makeReservation(date: $date, type: $type, carId: $carId){
         id
