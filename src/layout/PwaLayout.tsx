@@ -42,7 +42,6 @@ function ActiveReservation() {
 export function PwaLayout() {
   return (
     <Stack sx={{ backgroundColor: "background.default", height: "100svh" }}>
-      <ActiveReservation />
       <Box p={4} height="100%" overflow="auto">
         <Outlet />
       </Box>
