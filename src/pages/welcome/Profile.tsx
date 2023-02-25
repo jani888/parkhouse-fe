@@ -76,7 +76,7 @@ export function Profile() {
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNmM5ZjU5YzMtZDY4ZC00NmQxLTk2ZDktN2IzNjVhZDI3N2Y4IiwibmFtZSI6Ikl2YSJ9LCJpYXQiOjE2NzczNjc2MzEsImV4cCI6MTY3ODY2MzYzMX0.8-lWuJ3d9QVohO_aZy02aUb4U6G6oTE0ypjUdfqFPto"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMjYxYTdiOWEtMmE1ZC00NzBkLThlOWYtOTg0YzA1MmZlYWMxIiwibmFtZSI6IldlbmR5In0sImlhdCI6MTY3NzM2Nzg4NywiZXhwIjoxNjc4NjYzODg3fQ.83D2V_9IMDFI6MrTwKhkHiIHDxG_rGtP-ZR-Y-MN4H4"
               )
             }
           />
