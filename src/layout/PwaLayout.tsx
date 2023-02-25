@@ -5,7 +5,7 @@ import React from "react";
 
 export function PwaLayout() {
   return (
-    <Stack sx={{ backgroundColor: "background.default", height: "100vh" }}>
+    <Stack sx={{ backgroundColor: "background.default", height: "100svh" }}>
       <Box p={4} height="100%" overflow="auto">
         <Outlet />
       </Box>

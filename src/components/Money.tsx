@@ -10,7 +10,7 @@ export function Money() {
       label={165}
       color="primary"
       icon={<MonetizationOnIcon />}
-      onClick={() => navigate("/game/shop")}
+      onClick={() => navigate("/pwa/game/shop")}
     />
   );
 }

@@ -124,9 +124,7 @@ export function WelcomePage() {
         </Typography>
         <Money />
       </Stack>
-      {
-        //<UpcomingReservations />
-      }
+      <UpcomingReservations />
       <WeeklySchedule />
 
       <MyCars />
