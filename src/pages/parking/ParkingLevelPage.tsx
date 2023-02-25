@@ -10,22 +10,70 @@ export function ParkingLevelPage() {
     return <h1>404</h1>;
   }
   const spaces = [
-    "A1",
-    "A2",
-    "A3",
-    "A4",
-    "A5",
-    "A6",
-    "A7",
-    "A8",
-    "A9",
-    "A10",
-    "A11",
-    "A12",
-    "A13",
-    "A14",
-    "A15",
-    "A16",
+    {
+      label: "A1",
+      car: undefined,
+    },
+    {
+      label: "A2",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A3",
+      car: "tdrc01_car04_a.png",
+    },
+    {
+      label: "A4",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A5",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A6",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A7",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A8",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A9",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A10",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A11",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A12",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A13",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A14",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A15",
+      car: "tdrc01_car03_d.png",
+    },
+    {
+      label: "A16",
+      car: "tdrc01_car03_d.png",
+    },
   ];
   const leftCol = spaces.slice(0, spaces.length / 2);
   const rightCol = spaces.slice(spaces.length / 2, spaces.length);
@@ -41,7 +89,7 @@ export function ParkingLevelPage() {
         textAlign="center"
         textTransform="uppercase"
       >
-        Bejárat
+        Kijárat
       </Typography>
       <Box
         sx={{
@@ -64,21 +112,23 @@ export function ParkingLevelPage() {
               justifyContent: "center",
               alignItems: "center",
             }}
-            key={space}
+            key={space.label}
           >
             <Box
               width="70%"
               height="60%"
               borderRadius={3}
               sx={{
-                backgroundColor: "primary.main",
+                background: space.car ? `url('/cars/${space.car}')` : undefined,
+                backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 fontWeight: 600,
+                transform: space.car ? "rotate(180deg)" : undefined,
               }}
             >
-              {space}
+              {!space.car && space.label}
             </Box>
           </Box>
         ))}
@@ -95,21 +145,22 @@ export function ParkingLevelPage() {
               justifyContent: "center",
               alignItems: "center",
             }}
-            key={space}
+            key={space.label}
           >
             <Box
               width="70%"
               height="60%"
               borderRadius={3}
               sx={{
-                backgroundColor: "primary.main",
+                background: space.car ? `url('/cars/${space.car}')` : undefined,
+                backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 fontWeight: 600,
               }}
             >
-              {space}
+              {!space.car && space.label}
             </Box>
           </Box>
         ))}
@@ -125,8 +176,12 @@ export function ParkingLevelPage() {
             flexDirection: "column",
           }}
         >
-          <Box sx={{ height: "80%", borderRight: "2px dashed #595959" }} />
-          <ExpandMoreRoundedIcon sx={{ mt: -2, color: "#595959" }} />
+          <ExpandMoreRoundedIcon
+            sx={{ color: "#595959", transform: "rotate(180deg)" }}
+          />
+          <Box
+            sx={{ height: "80%", borderRight: "2px dashed #595959", mt: -2 }}
+          />
         </Box>
       </Box>
       <Typography
@@ -136,7 +191,7 @@ export function ParkingLevelPage() {
         textAlign="center"
         textTransform="uppercase"
       >
-        Kijárat
+        Bejárat
       </Typography>
     </Stack>
   );
