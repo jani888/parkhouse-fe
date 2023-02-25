@@ -4,23 +4,66 @@ import AddIcon from "@mui/icons-material/Add";
 import { CarDialog } from "./CarDialog";
 import { SectionRow } from "../welcome/SectionRow";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import { Section } from "../welcome/Section";
+import {
+  MyCarsDocument,
+  useAddCarMutation,
+  useMyCarsQuery,
+  useRemoveCarMutation,
+  useUpdateCarMutation,
+} from "../../generated/graphql";
 
 export function CarsPage() {
+  const { data } = useMyCarsQuery();
+  const [addCar, { loading: createLoading }] = useAddCarMutation({
+    refetchQueries: [MyCarsDocument],
+  });
+  const [updateCar, { loading: updateLoading }] = useUpdateCarMutation({
+    refetchQueries: [MyCarsDocument],
+  });
+  const [removeCar, { loading: deleteLoading }] = useRemoveCarMutation({
+    refetchQueries: [MyCarsDocument],
+  });
+  const loading = createLoading || updateLoading;
   const [open, setOpen] = useState(false);
   const [editedItem, setEditedItem] = useState<{
+    id: string;
     name: string;
     licencePlate: string;
   }>();
 
-  function handleSubmit() {}
+  async function handleSubmit(values: { name: string; licencePlate: string }) {
+    if (editedItem?.id) {
+      await updateCar({
+        variables: {
+          ...values,
+          id: editedItem.id,
+        },
+      });
+    } else {
+      await addCar({
+        variables: values,
+      });
+    }
+    setOpen(false);
+  }
 
-  function handleEditClick(licencePlate: string) {
-    setOpen(true);
-    setEditedItem({
-      licencePlate,
-      name: "Név",
+  async function handleDelete() {
+    if (!editedItem) return;
+    await removeCar({
+      variables: {
+        id: editedItem.id,
+      },
     });
+    setOpen(false);
+  }
+
+  function handleEditClick(car: {
+    id: string;
+    name: string;
+    licencePlate: string;
+  }) {
+    setOpen(true);
+    setEditedItem(car);
   }
 
   function handleCreateClick() {
@@ -31,14 +74,15 @@ export function CarsPage() {
   return (
     <Stack gap={2} height="100%">
       <Typography variant="h1">🏎 Saját autóim</Typography>
-      <Section label="">
+      {data?.myUser.cars.map((car) => (
         <SectionRow
-          onClick={() => handleEditClick("NYK-873")}
-          title="NYK-873"
-          subtitle="Alapértelmezett"
+          key={car.id}
+          onClick={() => handleEditClick(car)}
+          title={car.name}
+          subtitle={car.licencePlate}
           icon={<DirectionsCarIcon sx={{ color: "white" }} fontSize="large" />}
         />
-      </Section>
+      ))}
       <Button
         onClick={handleCreateClick}
         variant="contained"
@@ -49,11 +93,14 @@ export function CarsPage() {
         Új autó
       </Button>
       <CarDialog
+        deleteLoading={deleteLoading}
+        loading={loading}
         onSubmit={handleSubmit}
         initialValues={editedItem}
         open={open}
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
+        onDelete={handleDelete}
       />
     </Stack>
   );

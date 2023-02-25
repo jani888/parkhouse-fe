@@ -15,6 +15,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 export function CarDialog({
   open,
@@ -22,11 +23,17 @@ export function CarDialog({
   onOpen,
   onSubmit,
   initialValues,
+  deleteLoading,
+  onDelete,
+  loading,
 }: {
   open: boolean;
   onClose(): void;
   onOpen(): void;
-  onSubmit(): void;
+  loading: boolean;
+  deleteLoading: boolean;
+  onSubmit(values: { name: string; licencePlate: string }): void;
+  onDelete(): void;
   initialValues?: {
     name: string;
     licencePlate: string;
@@ -95,6 +102,7 @@ export function CarDialog({
         />
 
         <Button
+          disabled={loading}
           onClick={() => onClose()}
           variant="text"
           color="secondary"
@@ -102,14 +110,26 @@ export function CarDialog({
         >
           Mégsem
         </Button>
-        <Button
+        <LoadingButton
+          loading={loading}
           variant="contained"
           color="primary"
           sx={{ mt: 1 }}
-          onClick={onSubmit}
+          onClick={() => onSubmit({ name, licencePlate })}
         >
           Mentés
-        </Button>
+        </LoadingButton>
+        {initialValues && (
+          <LoadingButton
+            loading={deleteLoading}
+            variant="contained"
+            color="error"
+            sx={{ mt: 1 }}
+            onClick={onDelete}
+          >
+            Autó törlése
+          </LoadingButton>
+        )}
       </Stack>
     </SwipeableDrawer>
   );

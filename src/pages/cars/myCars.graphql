@@ -1,0 +1,25 @@
+query myCars {
+    myUser {
+        cars {id, name, licencePlate}
+    }
+}
+
+mutation addCar($licencePlate: String!, $name: String!) {
+    addCar(licencePlate: $licencePlate, name: $name){
+        id
+        name
+        licencePlate
+    }
+}
+
+mutation updateCar($id: ID!, $licencePlate: String!, $name: String!){
+    updateCar(licencePlate: $licencePlate, name: $name, carId: $id){
+        id
+        name
+        licencePlate
+    }
+}
+
+mutation removeCar($id: ID!){
+    removeCar(carId: $id)
+}
