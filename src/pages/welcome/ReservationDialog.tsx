@@ -181,12 +181,12 @@ export function ReservationDialog({
               <FormControlLabel
                 value="today"
                 control={<Radio />}
-                label="Ma (02.24)"
+                label="Ma (02.25)"
               />
               <FormControlLabel
                 value="tomorrow"
                 control={<Radio />}
-                label="Holnap (02.05)"
+                label="Holnap (02.26)"
               />
               <FormControlLabel
                 value="custom"

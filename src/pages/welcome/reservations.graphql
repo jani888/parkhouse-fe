@@ -2,6 +2,12 @@ query myReservations {
     myReservations {
         id
         date
+        parkingSpace {
+            label
+            level {
+                label
+            }
+        }
     }
 }
 

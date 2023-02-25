@@ -29,9 +29,10 @@ export function Profile() {
   return (
     <>
       <Avatar
+        src={data?.myUser.avatar ?? ""}
         onClick={openProfileSelector}
         sx={{ bgcolor: "primary.300" }}
-        variant="circular"
+        variant="rounded"
       />
       <Typography
         onClick={openProfileSelector}

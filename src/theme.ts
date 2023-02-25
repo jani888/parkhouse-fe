@@ -51,12 +51,12 @@ export const theme = createTheme({
   typography: {
     h1: {
       color: "white",
-      fontSize: "32px",
+      fontSize: "28px",
       fontWeight: 900,
     },
     h2: {
       color: "white",
-      fontSize: "24px",
+      fontSize: "22px",
       fontWeight: 900,
     },
     h3: {

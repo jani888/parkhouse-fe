@@ -1,6 +1,7 @@
 query getMe {
     myUser {
         id
+        avatar
         name
         coin
         hasFixedParkingSpace

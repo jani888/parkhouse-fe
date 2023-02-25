@@ -308,12 +308,12 @@ export type ParkingLevelQuery = { __typename: 'Query', level: { __typename: 'Lev
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename: 'Query', myUser: { __typename: 'User', id: string, name: string, coin: number, hasFixedParkingSpace: boolean } };
+export type GetMeQuery = { __typename: 'Query', myUser: { __typename: 'User', id: string, avatar: string, name: string, coin: number, hasFixedParkingSpace: boolean } };
 
 export type MyReservationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyReservationsQuery = { __typename: 'Query', myReservations: Array<{ __typename: 'Reservation', id: string, date: any }> };
+export type MyReservationsQuery = { __typename: 'Query', myReservations: Array<{ __typename: 'Reservation', id: string, date: any, parkingSpace: { __typename: 'ParkingSpace', label: string, level: { __typename: 'Level', label: string } } }> };
 
 export type MakeReservationMutationVariables = Exact<{
   date: Scalars['DateTime'];
@@ -711,6 +711,7 @@ export const GetMeDocument = gql`
     query getMe {
   myUser {
     id
+    avatar
     name
     coin
     hasFixedParkingSpace
@@ -749,6 +750,12 @@ export const MyReservationsDocument = gql`
   myReservations {
     id
     date
+    parkingSpace {
+      label
+      level {
+        label
+      }
+    }
   }
 }
     `;
