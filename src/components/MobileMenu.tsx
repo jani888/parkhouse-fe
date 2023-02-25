@@ -6,7 +6,13 @@ import MapTwoToneIcon from "@mui/icons-material/MapTwoTone";
 import DirectionsCarFilledTwoToneIcon from "@mui/icons-material/DirectionsCarFilledTwoTone";
 import VideogameAssetTwoToneIcon from "@mui/icons-material/VideogameAssetTwoTone";
 
-function MenuItem({ children, icon }: { children: string; icon: JSX.Element }) {
+export function MenuItem({
+  children,
+  icon,
+}: {
+  children: string;
+  icon: JSX.Element;
+}) {
   return (
     <ButtonBase
       sx={{ width: "100%", display: "flex", flexDirection: "column", py: 2 }}
