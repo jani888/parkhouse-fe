@@ -3,8 +3,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import MapTwoToneIcon from "@mui/icons-material/MapTwoTone";
-import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import DirectionsCarFilledTwoToneIcon from "@mui/icons-material/DirectionsCarFilledTwoTone";
+
 function MenuItem({ children, icon }: { children: string; icon: JSX.Element }) {
   return (
     <ButtonBase
