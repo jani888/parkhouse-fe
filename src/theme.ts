@@ -41,6 +41,10 @@ export const theme = createTheme({
         containedPrimary: {
           background: "linear-gradient(266.12deg, #39ADEB 0%, #5800C9 97.58%)",
         },
+        containedWarning: {
+          background:
+            "linear-gradient(266.12deg, #EACC37FF 0%, #ed6c02 97.58%)",
+        },
       },
     },
   },
