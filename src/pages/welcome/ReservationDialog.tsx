@@ -41,7 +41,7 @@ export function ReservationDialog({
     useMakeReservationMutation();
   const { data: cars } = useMyCarsQuery();
 
-  const onlyWaitListSpaceAvailable = false;
+  const onlyWaitListSpaceAvailable = true;
 
   function getDate() {
     switch (dateType) {
