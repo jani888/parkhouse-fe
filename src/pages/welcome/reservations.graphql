@@ -1,0 +1,28 @@
+query myReservations {
+    myReservations {
+        id
+        date
+    }
+}
+
+query myCars {
+    myUser {
+        cars {
+            id
+            name
+            licencePlate
+        }
+    }
+}
+
+mutation makeReservation($date: DateTime!, $type: ReservationType!, $carId: ID!){
+    makeReservation(date: $date, type: $type, carId: $carId){
+        id
+        parkingSpace {
+            label
+            level {
+                label
+            }
+        }
+    }
+}

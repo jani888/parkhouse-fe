@@ -1,0 +1,21 @@
+query parkingLevels {
+    levels {
+        id
+        label
+        spaces {
+            id
+        }
+    }
+}
+
+query parkingLevel($id: ID!) {
+    level(id: $id){
+        id
+        label
+        spaces {
+            id
+            label
+            currentStatus
+        }
+    }
+}

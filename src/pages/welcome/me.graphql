@@ -3,5 +3,6 @@ query getMe {
         id
         name
         coin
+        hasFixedParkingSpace
     }
 }

@@ -1,38 +1,71 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { Box, Chip, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Stack, Tab, Tabs, Typography } from "@mui/material";
 import GarageIcon from "@mui/icons-material/Garage";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import React from "react";
 import { Car } from "./Car";
+import {
+  GameCarsDocument,
+  GetMeDocument,
+  MyGameCarsDocument,
+  useBuyGameCarMutation,
+  useGameCarsQuery,
+  useGetMeQuery,
+  useMyGameCarsQuery,
+  useSelectGameCarMutation,
+} from "../../generated/graphql";
 import { Money } from "../../components/Money";
 
 export function GamePage() {
   const { tab } = useParams();
+  const { data: gameCars } = useGameCarsQuery();
+  const { data: myCars } = useMyGameCarsQuery();
+  const { data: user } = useGetMeQuery();
+  const [buyCar] = useBuyGameCarMutation({
+    refetchQueries: [GetMeDocument, GameCarsDocument, MyGameCarsDocument],
+  });
+  const [selectCar] = useSelectGameCarMutation({
+    refetchQueries: [MyGameCarsDocument],
+  });
   const navigate = useNavigate();
-  const cars = [
-    "tdrc01_car01_b.png",
-    "tdrc01_car01_e.png",
-    "tdrc01_car01_f.png",
-    "tdrc01_car03_a.png",
-    "tdrc01_car03_c.png",
-    "tdrc01_car03_d.png",
-  ];
 
   function setTab(val: string) {
     navigate("/pwa/game/" + val);
   }
 
-  function handleCarChange(car: string) {}
+  function handleCarChange(carId: string) {
+    selectCar({
+      variables: {
+        id: carId,
+      },
+    });
+  }
 
-  function handleCarBuy(car: string) {}
+  async function handleCarBuy(carId: string) {
+    const car = gameCars?.gameCars.find((c) => c.id === carId);
+    const money = user?.myUser.coin ?? 0;
+    if (!car || money < car.price || car.ownedByMe) return;
+    await buyCar({
+      variables: {
+        id: carId,
+      },
+    });
+    setTab("garage");
+  }
 
   return (
     <Stack m={-4} sx={{ height: "calc(100% + 4rem)", gap: 2 }}>
-      <Typography variant="h1" pt={4} pl={3}>
-        🕹 Játék autók
-      </Typography>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        pt={4}
+        px={3}
+      >
+        <Typography variant="h1">🕹 Játék autók</Typography>
+        <Money />
+      </Stack>
       <Tabs
         sx={{ flexShrink: 0 }}
         value={tab}
@@ -57,7 +90,7 @@ export function GamePage() {
 
       {tab === "garage" && (
         <>
-          {cars.length === 0 && (
+          {myCars?.myUser.ownedGameCars.length === 0 && (
             <Stack justifyContent="center" gap={2} p={2}>
               <Typography variant="h3" textAlign="center">
                 Még nincs játékautód
@@ -69,6 +102,7 @@ export function GamePage() {
               </Typography>
             </Stack>
           )}
+
           <Box
             sx={{
               p: 2,
@@ -79,8 +113,14 @@ export function GamePage() {
               gridTemplateRows: "repeat(5, 1fr)",
             }}
           >
-            {cars.map((car) => (
-              <Car key={car} onClick={() => handleCarChange(car)} car={car} />
+            {myCars?.myUser.ownedGameCars.map((car) => (
+              <Car
+                selected={myCars?.myUser.selectedGameCar?.id === car.id}
+                money={user?.myUser.coin ?? 0}
+                key={car.id}
+                onClick={() => handleCarChange(car.id)}
+                car={{ ...car, ownedByMe: true }}
+              />
             ))}
           </Box>
         </>
@@ -88,10 +128,8 @@ export function GamePage() {
 
       {tab === "shop" && (
         <Stack height="100%" p={2}>
-          <Money />
           <Box
             sx={{
-              p: 2,
               display: "grid",
               height: "100%",
               gap: 2,
@@ -99,8 +137,13 @@ export function GamePage() {
               gridTemplateRows: "repeat(5, 1fr)",
             }}
           >
-            {cars.map((car) => (
-              <Car key={car} onClick={() => handleCarBuy(car)} car={car} />
+            {gameCars?.gameCars.map((car) => (
+              <Car
+                money={user?.myUser.coin ?? 0}
+                key={car.id}
+                onClick={() => handleCarBuy(car.id)}
+                car={car}
+              />
             ))}
           </Box>
         </Stack>

@@ -3,30 +3,31 @@ import Typography from "@mui/material/Typography";
 import { Section } from "../welcome/Section";
 import { SectionRow } from "../welcome/SectionRow";
 import { useNavigate } from "react-router";
+import { useParkingLevelsQuery } from "../../generated/graphql";
 
 export function ParkingPage() {
-  const levels = [1, 2, 3, 4];
   const navigate = useNavigate();
+  const { data } = useParkingLevelsQuery();
 
   return (
-    <Stack direction="column">
-      <Typography variant="h1">🏢 Parkoló szintek</Typography>
+    <Stack direction="column" gap={2}>
+      <Typography variant="h1" mb={4}>
+        🏢 Parkoló szintek
+      </Typography>
 
-      <Section label=" ">
-        {levels.map((level) => (
-          <SectionRow
-            onClick={() => navigate("/pwa/levels/" + level)}
-            key={level}
-            title={level + ". emelet"}
-            subtitle="16 férőhely"
-            icon={
-              <Typography fontWeight={900} fontSize={32}>
-                {level}
-              </Typography>
-            }
-          />
-        ))}
-      </Section>
+      {data?.levels.map((level, index) => (
+        <SectionRow
+          onClick={() => navigate("/pwa/levels/" + level.id)}
+          key={level.id}
+          title={level.label}
+          subtitle="16 férőhely"
+          icon={
+            <Typography fontWeight={900} fontSize={32}>
+              {index + 1}
+            </Typography>
+          }
+        />
+      ))}
     </Stack>
   );
 }

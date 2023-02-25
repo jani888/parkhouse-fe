@@ -15,6 +15,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useMutation } from "@apollo/client";
+import {
+  ReservationType,
+  useMakeReservationMutation,
+  useMakeResignationMutation,
+  useMyCarsQuery,
+} from "../../generated/graphql";
 
 export function ReservationDialog({
   open,
@@ -26,13 +33,40 @@ export function ReservationDialog({
   onOpen(): void;
 }) {
   const [dateType, setDateType] = useState("today");
-  const [time, setTime] = useState("all_day");
-  const [car, setCar] = useState("nyk-873");
+  const [time, setTime] = useState<ReservationType>("ALL_DAY");
+  const [carId, setCarId] = useState("");
+  const [date, setDate] = useState("");
   const [reserved, setReserved] = useState(false);
+  const [makeReservation, { loading, data: reservation }] =
+    useMakeReservationMutation();
+  const { data: cars } = useMyCarsQuery();
 
-  const onlyWaitListSpaceAvailable = true;
+  const onlyWaitListSpaceAvailable = false;
 
-  function handleReservation() {
+  function getDate() {
+    switch (dateType) {
+      case "today":
+        return new Date().toISOString().slice(0, 10) + "T00:00:00Z";
+      case "tomorrow":
+        return (
+          new Date(new Date().setDate(new Date().getDate() + 1))
+            .toISOString()
+            .slice(0, 10) + "T00:00:00Z"
+        );
+      case "custom":
+        return date + "T00:00:00Z";
+    }
+  }
+
+  async function handleReservation() {
+    const date = getDate();
+    await makeReservation({
+      variables: {
+        date,
+        carId,
+        type: time,
+      },
+    });
     setReserved(true);
   }
 
@@ -73,18 +107,47 @@ export function ReservationDialog({
             Sikeres foglalás
           </Typography>
 
-          <Typography
-            variant="h1"
-            fontSize={64}
-            color="#002F59"
-            textAlign="center"
-            mt={12}
-          >
-            #2
-          </Typography>
-          <Typography variant="h3" color="#002F59" textAlign="center" mt={1}>
-            2 foglalás van előtted a várólistán
-          </Typography>
+          {onlyWaitListSpaceAvailable ? (
+            <>
+              <Typography
+                variant="h1"
+                fontSize={64}
+                color="#002F59"
+                textAlign="center"
+                mt={12}
+              >
+                #2
+              </Typography>
+              <Typography
+                variant="h3"
+                color="#002F59"
+                textAlign="center"
+                mt={1}
+              >
+                2 foglalás van előtted a várólistán
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography
+                variant="h1"
+                fontSize={64}
+                color="#002F59"
+                textAlign="center"
+                mt={12}
+              >
+                {reservation?.makeReservation.parkingSpace.label}
+              </Typography>
+              <Typography
+                variant="h3"
+                color="#002F59"
+                textAlign="center"
+                mt={1}
+              >
+                {reservation?.makeReservation.parkingSpace.level.label}
+              </Typography>
+            </>
+          )}
 
           <Button
             variant="contained"
@@ -134,6 +197,8 @@ export function ReservationDialog({
           </FormControl>
           {dateType === "custom" && (
             <TextField
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               fullWidth
               label="Egyéni dátum"
               type="date"
@@ -154,19 +219,22 @@ export function ReservationDialog({
               },
             }}
           >
-            <RadioGroup value={time} onChange={(_, value) => setTime(value)}>
+            <RadioGroup
+              value={time}
+              onChange={(_, value) => setTime(value as ReservationType)}
+            >
               <FormControlLabel
-                value="all_day"
+                value="ALL_DAY"
                 control={<Radio />}
                 label="Egész nap"
               />
               <FormControlLabel
-                value="morning"
+                value="MORNING"
                 control={<Radio />}
                 label="Délelőtt"
               />
               <FormControlLabel
-                value="afternoon"
+                value="AFTERNOON"
                 control={<Radio />}
                 label="Délután"
               />
@@ -183,8 +251,8 @@ export function ReservationDialog({
               }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={car}
-              label="Auto"
+              value={carId}
+              label="Autó"
               MenuProps={{
                 anchorOrigin: {
                   vertical: "top",
@@ -195,14 +263,13 @@ export function ReservationDialog({
                   horizontal: "left",
                 },
               }}
-              onChange={(e) => setCar(e.target.value)}
+              onChange={(e) => setCarId(e.target.value)}
             >
-              <MenuItem sx={{ color: "#242424" }} value="nyk-873">
-                NYK-873
-              </MenuItem>
-              <MenuItem sx={{ color: "#242424" }} value="abc-123">
-                ABC-123
-              </MenuItem>
+              {cars?.myUser.cars.map((car) => (
+                <MenuItem key={car.id} sx={{ color: "#242424" }} value={car.id}>
+                  {car.name} ({car.licencePlate})
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 

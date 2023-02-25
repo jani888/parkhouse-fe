@@ -3,9 +3,15 @@ import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import { BackButton } from "../../components/BackButton";
 import { DirectionArrow } from "./DirectionArrow";
+import { useParkingLevelQuery } from "../../generated/graphql";
 
 export function ParkingLevelPage() {
   const { id } = useParams<{ id: string }>();
+  const { data } = useParkingLevelQuery({
+    variables: {
+      id: id ?? "",
+    },
+  });
   if (!id) {
     return <h1>404</h1>;
   }
@@ -91,12 +97,15 @@ export function ParkingLevelPage() {
       arrived: true,
     },
   ];
-  const leftCol = spaces.slice(0, spaces.length / 2);
-  const rightCol = spaces.slice(spaces.length / 2, spaces.length);
+  const leftCol = data?.level.spaces.slice(0, data?.level.spaces.length / 2);
+  const rightCol = data?.level.spaces.slice(
+    data?.level.spaces.length / 2,
+    data?.level.spaces.length
+  );
   return (
-    <Stack height="100%">
+    <Stack height="100%" gap={2}>
       <Typography variant="h1">
-        <BackButton to="/pwa/parking" /> {id}
+        <BackButton to="/pwa/parking" /> {data?.level.label}
       </Typography>
       <Typography
         color="#595959"
@@ -111,13 +120,13 @@ export function ParkingLevelPage() {
         sx={{
           display: "grid",
           gridTemplateColumns: "1fr 75px 1fr",
-          gridTemplateRows: `repeat(${rightCol.length}, 1fr)`,
+          gridTemplateRows: `repeat(${rightCol?.length}, 1fr)`,
           width: "100%",
           height: "100%",
           border: "1px solid #595959",
         }}
       >
-        {leftCol.map((space, index) => (
+        {leftCol?.map((space, index) => (
           <Box
             sx={{
               gridRow: index + 1,
@@ -135,23 +144,28 @@ export function ParkingLevelPage() {
               height="60%"
               borderRadius={3}
               sx={{
-                background: space.car ? `url('/cars/${space.car}')` : undefined,
-                opacity: space.arrived || space.car === undefined ? 1 : 0.1,
+                background:
+                  space.currentStatus !== "FREE"
+                    ? `url('/cars/default_car.png')`
+                    : undefined,
                 backgroundRepeat: "no-repeat",
+                opacity: ["FREE", "OCCUPIED"].includes(space.currentStatus)
+                  ? 1
+                  : 0.1,
                 backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
+                transform: "rotate(180deg)",
                 alignItems: "center",
                 fontWeight: 600,
-                transform: space.car ? "rotate(180deg)" : undefined,
               }}
             >
-              {!space.car && space.label}
+              {space.currentStatus === "FREE" && space.label}
             </Box>
           </Box>
         ))}
 
-        {rightCol.map((space, index) => (
+        {rightCol?.map((space, index) => (
           <Box
             sx={{
               gridColumn: 3,
@@ -170,9 +184,14 @@ export function ParkingLevelPage() {
               height="60%"
               borderRadius={3}
               sx={{
-                background: space.car ? `url('/cars/${space.car}')` : undefined,
+                background:
+                  space.currentStatus !== "FREE"
+                    ? `url('/cars/default_car.png')`
+                    : undefined,
                 backgroundRepeat: "no-repeat",
-                opacity: space.arrived || space.car === undefined ? 1 : 0.1,
+                opacity: ["FREE", "OCCUPIED"].includes(space.currentStatus)
+                  ? 1
+                  : 0.1,
                 backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
@@ -180,7 +199,7 @@ export function ParkingLevelPage() {
                 fontWeight: 600,
               }}
             >
-              {!space.car && space.label}
+              {space.currentStatus === "FREE" && space.label}
             </Box>
           </Box>
         ))}
@@ -196,9 +215,7 @@ export function ParkingLevelPage() {
             alignItems: "center",
             flexDirection: "column",
           }}
-        >
-          <DirectionArrow />
-        </Box>
+        ></Box>
       </Box>
       <Typography
         color="#595959"

@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { SectionRow } from "./SectionRow";
-import { useQuery } from "@apollo/client";
 import { useGetMeQuery } from "../../generated/graphql";
 import { JWTContext } from "../../JWTContextProvider";
 
@@ -24,6 +23,7 @@ export function Profile() {
 
   function selectUser(token: string) {
     setToken(token);
+    setOpen(false);
   }
 
   return (
@@ -65,7 +65,7 @@ export function Profile() {
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYjUyMzVjMzctY2E1Ny00NTVhLTgzYWMtOWI3YmQzMGQ2MDljIiwibmFtZSI6IkFkbWluIn0sImlhdCI6MTY3NzMzOTU2MCwiZXhwIjoxNjc4NjM1NTYwfQ.ENBGkr8wNZl5neB83DsnaVRnCfxI_UXmPrZkRIpxo8Ugi"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYWRtaW4iLCJuYW1lIjoiQWRtaW4ifSwiaWF0IjoxNjc3MzQwMTkwLCJleHAiOjE2Nzg2MzYxOTB9.clY9jGEGtEdwYm4Mck9vERe0nuM9vlJP51M7_1Jk68o"
               )
             }
           />
@@ -75,7 +75,7 @@ export function Profile() {
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMGE3YWM4MDktNzYwOS00NzlhLThjNjYtYWY5MThjNjdkYWY5IiwibmFtZSI6Ikh1Z2gifSwiaWF0IjoxNjc3MzM2Njc4LCJleHAiOjE2Nzg2MzI2Nzh9.VvuwHpPBq2Hs9pe2_4LiSWR5XLUdYQ9vcPZoCL1GU2Y"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZmY1NDU2NTItNzUxYS00YjUzLWE1Y2EtNzU2M2YxNzBhN2IxIiwibmFtZSI6IlN0ZXBoYW5pZSJ9LCJpYXQiOjE2NzczNTQ5MjEsImV4cCI6MTY3ODY1MDkyMX0.TRE-GuL8M4aHZlMBpIj1n1sqWLOK5YECST41tOPrWgk"
               )
             }
           />

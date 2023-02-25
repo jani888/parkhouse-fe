@@ -13,7 +13,7 @@ export function JWTContextProvider({ children }: { children: JSX.Element }) {
   }
 
   return (
-    <JWTContext.Provider value={{ setToken: updateToken }}>
+    <JWTContext.Provider key={token} value={{ setToken: updateToken }}>
       {children}
     </JWTContext.Provider>
   );

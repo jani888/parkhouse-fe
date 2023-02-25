@@ -1,0 +1,16 @@
+query myResignations {
+    myResignation{
+        id
+        date
+    }
+}
+
+mutation makeResignation($date: DateTime!){
+    makeResignation(date: $date){
+        id
+    }
+}
+
+mutation removeResignation($date: DateTime!){
+    cancelResignation(date: $date)
+}

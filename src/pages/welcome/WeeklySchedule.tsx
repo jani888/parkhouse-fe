@@ -2,23 +2,52 @@ import { Section } from "./Section";
 import { CheckboxSectionRow } from "./CheckboxSectionRow";
 import { Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
+import {
+  MyResignationsDocument,
+  useMakeResignationMutation,
+  useMyResignationsQuery,
+  useRemoveResignationMutation,
+} from "../../generated/graphql";
 
 export function WeeklySchedule() {
   const week = generateWeekArray(new Date());
-  const [checked, setChecked] = useState([true, true, true, true, true]);
+  const { data: resignations } = useMyResignationsQuery();
+  const [makeResignation] = useMakeResignationMutation({
+    refetchQueries: [MyResignationsDocument],
+  });
+  const [removeResignation] = useRemoveResignationMutation({
+    refetchQueries: [MyResignationsDocument],
+  });
+  const checked = week.map(
+    (wd) =>
+      !resignations?.myResignation.some(
+        (res) => new Date(res.date).toDateString() === wd.toDateString()
+      ) ?? true
+  );
+
+  function toggleResignation(date: Date, index: number) {
+    if (checked[index]) {
+      makeResignation({
+        variables: {
+          date: date.toISOString().slice(0, 10) + "T00:00:00Z",
+        },
+      });
+    } else {
+      removeResignation({
+        variables: {
+          date: date.toISOString().slice(0, 10) + "T00:00:00Z",
+        },
+      });
+    }
+  }
+
   return (
     <Section label="Heti beosztásom">
       {week.map((wd, index) => (
         <CheckboxSectionRow
           key={wd.toISOString()}
           checked={checked[index]}
-          onClick={() =>
-            setChecked((prev) => {
-              const next = JSON.parse(JSON.stringify(prev));
-              next[index] = !next[index];
-              return next;
-            })
-          }
+          onClick={() => toggleResignation(wd, index)}
           title={wd.toLocaleString(undefined, { weekday: "long" })}
           subtitle={wd.toLocaleDateString()}
           icon={

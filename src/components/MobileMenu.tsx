@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import MapTwoToneIcon from "@mui/icons-material/MapTwoTone";
 import DirectionsCarFilledTwoToneIcon from "@mui/icons-material/DirectionsCarFilledTwoTone";
+import VideogameAssetTwoToneIcon from "@mui/icons-material/VideogameAssetTwoTone";
 
 function MenuItem({ children, icon }: { children: string; icon: JSX.Element }) {
   return (
@@ -47,6 +48,20 @@ export function MobileMenu() {
         )}
       </NavLink>
       <NavLink to="/pwa/game/garage" style={{ width: "100%" }}>
+        {({ isActive }) => (
+          <MenuItem
+            icon={
+              <VideogameAssetTwoToneIcon
+                fontSize="large"
+                color={isActive ? "primary" : "secondary"}
+              />
+            }
+          >
+            Cars
+          </MenuItem>
+        )}
+      </NavLink>
+      <NavLink to="/pwa/cars" style={{ width: "100%" }}>
         {({ isActive }) => (
           <MenuItem
             icon={

@@ -1,0 +1,31 @@
+query gameCars {
+    gameCars {
+        id
+        name
+        price
+        image
+        ownedByMe
+    }
+}
+
+query myGameCars {
+    myUser {
+        selectedGameCar {
+            id
+        }
+        ownedGameCars {
+            id
+            name
+            price
+            image
+        }
+    }
+}
+
+mutation buyGameCar($id: ID!){
+    buyGameCar(gameCarId: $id)
+}
+
+mutation selectGameCar($id: ID!){
+    selectGameCar(gameCarId: $id)
+}

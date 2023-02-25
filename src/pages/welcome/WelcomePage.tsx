@@ -6,10 +6,11 @@ import { UpcomingReservations } from "./UpcomingReservations";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router";
 import { Profile } from "./Profile";
+import { useGetMeQuery } from "../../generated/graphql";
 
 export function WelcomePage() {
   const navigate = useNavigate();
-  const hasFixedSpace = true;
+  const { data } = useGetMeQuery();
 
   return (
     <Stack direction="column" gap={6}>
@@ -19,7 +20,11 @@ export function WelcomePage() {
           <Money />
         </Box>
       </Stack>
-      {hasFixedSpace ? <WeeklySchedule /> : <UpcomingReservations />}
+      {data?.myUser.hasFixedParkingSpace ? (
+        <WeeklySchedule />
+      ) : (
+        <UpcomingReservations />
+      )}
       <Button
         variant="text"
         onClick={() => navigate("/pwa/cars")}
