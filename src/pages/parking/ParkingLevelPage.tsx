@@ -12,67 +12,83 @@ export function ParkingLevelPage() {
   const spaces = [
     {
       label: "A1",
-      car: undefined,
+      car: "default_car.png",
+      arrived: false,
     },
     {
       label: "A2",
-      car: "tdrc01_car03_d.png",
+      car: undefined,
+      arrived: false,
     },
     {
       label: "A3",
-      car: "tdrc01_car04_a.png",
+      car: "tdrc01_car09_a.png",
+      arrived: false,
     },
     {
       label: "A4",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
     {
       label: "A5",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: false,
     },
     {
       label: "A6",
-      car: "tdrc01_car03_d.png",
+      car: "tdrc01_car08_b.png",
+      arrived: true,
     },
     {
       label: "A7",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: false,
     },
     {
       label: "A8",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
     {
       label: "A9",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
     {
       label: "A10",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
     {
       label: "A11",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
     {
       label: "A12",
-      car: "tdrc01_car03_d.png",
+      car: undefined,
+      arrived: false,
     },
     {
       label: "A13",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
     {
       label: "A14",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: false,
     },
     {
       label: "A15",
-      car: "tdrc01_car03_d.png",
+      car: "tdrc01_car01_b.png",
+      arrived: false,
     },
     {
       label: "A16",
-      car: "tdrc01_car03_d.png",
+      car: "default_car.png",
+      arrived: true,
     },
   ];
   const leftCol = spaces.slice(0, spaces.length / 2);
@@ -120,6 +136,8 @@ export function ParkingLevelPage() {
               borderRadius={3}
               sx={{
                 background: space.car ? `url('/cars/${space.car}')` : undefined,
+                opacity: space.arrived || space.car === undefined ? 1 : 0.1,
+                backgroundRepeat: "no-repeat",
                 backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
@@ -153,6 +171,8 @@ export function ParkingLevelPage() {
               borderRadius={3}
               sx={{
                 background: space.car ? `url('/cars/${space.car}')` : undefined,
+                backgroundRepeat: "no-repeat",
+                opacity: space.arrived || space.car === undefined ? 1 : 0.1,
                 backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
