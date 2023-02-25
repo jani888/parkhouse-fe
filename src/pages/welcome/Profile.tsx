@@ -61,8 +61,8 @@ export function Profile() {
             Válassz az előre beállított profilok közűl
           </Typography>
           <SectionRow
-            title="Jani"
-            subtitle="Hidvégi János"
+            title="Admin"
+            subtitle="Admin"
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
@@ -71,22 +71,22 @@ export function Profile() {
             }
           />
           <SectionRow
-            title="Jani"
-            subtitle="Hidvégi János"
+            title="Iva"
+            subtitle="Iva Lajos"
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZmY1NDU2NTItNzUxYS00YjUzLWE1Y2EtNzU2M2YxNzBhN2IxIiwibmFtZSI6IlN0ZXBoYW5pZSJ9LCJpYXQiOjE2NzczNTQ5MjEsImV4cCI6MTY3ODY1MDkyMX0.TRE-GuL8M4aHZlMBpIj1n1sqWLOK5YECST41tOPrWgk"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNmM5ZjU5YzMtZDY4ZC00NmQxLTk2ZDktN2IzNjVhZDI3N2Y4IiwibmFtZSI6Ikl2YSJ9LCJpYXQiOjE2NzczNjc2MzEsImV4cCI6MTY3ODY2MzYzMX0.8-lWuJ3d9QVohO_aZy02aUb4U6G6oTE0ypjUdfqFPto"
               )
             }
           />
           <SectionRow
-            title="Jani"
-            subtitle="Hidvégi János"
+            title="Samanta"
+            subtitle="Samanta Szabó"
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMGE3YWM4MDktNzYwOS00NzlhLThjNjYtYWY5MThjNjdkYWY5IiwibmFtZSI6Ikh1Z2gifSwiaWF0IjoxNjc3MzM2Njc4LCJleHAiOjE2Nzg2MzI2Nzh9.VvuwHpPBq2Hs9pe2_4LiSWR5XLUdYQ9vcPZoCL1GU2Y"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZGI0NTQ2YmEtMTZhMC00Zjc3LTllNTMtOThkY2Y0YzBhZDUxIiwibmFtZSI6IlNhbWFudGEifSwiaWF0IjoxNjc3MzY3Njc2LCJleHAiOjE2Nzg2NjM2NzZ9.MAolsQhZnGyaqkhhsLqiUyErj4nFa-0bBsASKK_fYT8"
               )
             }
           />
