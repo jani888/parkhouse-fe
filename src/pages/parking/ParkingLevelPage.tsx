@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import React from "react";
 import { BackButton } from "../../components/BackButton";
+import { DirectionArrow } from "./DirectionArrow";
 
 export function ParkingLevelPage() {
   const { id } = useParams<{ id: string }>();
@@ -52,7 +52,7 @@ export function ParkingLevelPage() {
     },
     {
       label: "A9",
-      car: "default_car.png",
+      car: "tdrc01_car09_f.png",
       arrived: true,
     },
     {
@@ -190,18 +190,14 @@ export function ParkingLevelPage() {
             girdColumn: 2,
             gridRowStart: 1,
             gridRowEnd: 99,
+            position: "relative",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
           }}
         >
-          <ExpandMoreRoundedIcon
-            sx={{ color: "#595959", transform: "rotate(180deg)" }}
-          />
-          <Box
-            sx={{ height: "80%", borderRight: "2px dashed #595959", mt: -2 }}
-          />
+          <DirectionArrow />
         </Box>
       </Box>
       <Typography
