@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import {
+  MyReservationsDocument,
   ReservationType,
   useFreeSpacesQuery,
   useMakeReservationMutation,
@@ -39,7 +40,7 @@ export function ReservationDialog({
   const [date, setDate] = useState("");
   const [reserved, setReserved] = useState(false);
   const [makeReservation, { loading, data: reservation }] =
-    useMakeReservationMutation();
+    useMakeReservationMutation({ refetchQueries: [MyReservationsDocument] });
   const { data: cars } = useMyCarsQuery();
   const { data: freeSpaces } = useFreeSpacesQuery({
     variables: {
