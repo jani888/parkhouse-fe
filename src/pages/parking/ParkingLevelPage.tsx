@@ -1,13 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { Box, Stack, Typography } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import React from "react";
+import { BackButton } from "../../components/BackButton";
 
 export function ParkingLevelPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   if (!id) {
     return <h1>404</h1>;
   }
@@ -34,10 +32,7 @@ export function ParkingLevelPage() {
   return (
     <Stack height="100%">
       <Typography variant="h1">
-        <IconButton onClick={() => navigate("/pwa/parking")}>
-          <ArrowBackIosNewIcon sx={{ color: "white" }} />
-        </IconButton>{" "}
-        {id}
+        <BackButton to="/pwa/parking" /> {id}
       </Typography>
       <Typography
         color="#595959"

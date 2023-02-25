@@ -16,6 +16,19 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          fontWeight: 600,
+          fontSize: 16,
+        },
+        secondary: {
+          fontWeight: 600,
+          fontSize: 16,
+          color: "#ccc",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         disableElevation: true,
