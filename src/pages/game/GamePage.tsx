@@ -11,12 +11,12 @@ import { Money } from "../../components/Money";
 export function GamePage() {
   const { tab } = useParams();
   const navigate = useNavigate();
-  /*const cars = [
-      "tdrc01_car01_b.png",
-      "tdrc01_car01_e.png",
-      "tdrc01_car01_f.png",
-    ];*/
-  const cars: string[] = [];
+  const cars = [
+    "tdrc01_car01_b.png",
+    "tdrc01_car01_e.png",
+    "tdrc01_car01_f.png",
+    "tdrc01_car03_a.png",
+  ];
 
   function setTab(val: string) {
     navigate("/pwa/game/" + val);
