@@ -71,8 +71,8 @@ export function Profile() {
             }
           />
           <SectionRow
-            title="Iva"
-            subtitle="Iva Lajos"
+            title="Wendy"
+            subtitle="Wendy Williams"
             icon={<Typography variant="h1">HJ</Typography>}
             onClick={() =>
               selectUser(
