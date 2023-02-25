@@ -19,9 +19,9 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { Section } from "./Section";
 import { SectionRow } from "./SectionRow";
-import { CheckboxSectionRow } from "./CheckboxSectionRow";
 import EditIcon from "@mui/icons-material/Edit";
 import { Money } from "../../components/Money";
+import { WeeklySchedule } from "./WeeklySchedule";
 
 function UpcomingReservations() {
   const [open, setOpen] = useState(false);
@@ -57,61 +57,6 @@ function UpcomingReservations() {
         onClose={() => setOpen(false)}
       />
     </>
-  );
-}
-
-function WeeklySchedule() {
-  return (
-    <Section label="Heti beosztásom">
-      <CheckboxSectionRow
-        checked
-        onClick={() => console.error("Not implemented")}
-        title="Hétfő"
-        subtitle="2023. 02. 22."
-        icon={
-          <Stack direction="column" alignItems="center">
-            <Typography fontSize={18} color="white" fontWeight="bold">
-              24
-            </Typography>
-            <Typography fontSize={12} color="white">
-              Febr
-            </Typography>
-          </Stack>
-        }
-      />
-      <CheckboxSectionRow
-        checked={false}
-        onClick={() => console.error("Not implemented")}
-        title="Hétfő"
-        subtitle="2023. 02. 22."
-        icon={
-          <Stack direction="column" alignItems="center">
-            <Typography fontSize={18} color="white" fontWeight="bold">
-              24
-            </Typography>
-            <Typography fontSize={12} color="white">
-              Febr
-            </Typography>
-          </Stack>
-        }
-      />
-      <CheckboxSectionRow
-        checked
-        onClick={() => console.error("Not implemented")}
-        title="Hétfő"
-        subtitle="2023. 02. 22."
-        icon={
-          <Stack direction="column" alignItems="center">
-            <Typography fontSize={18} color="white" fontWeight="bold">
-              24
-            </Typography>
-            <Typography fontSize={12} color="white">
-              Febr
-            </Typography>
-          </Stack>
-        }
-      />
-    </Section>
   );
 }
 
