@@ -5,15 +5,13 @@ export const JWTContext = createContext<{ setToken(t: string): void }>({
 });
 
 export function JWTContextProvider({ children }: { children: JSX.Element }) {
-  const [token, setToken] = useState("");
-
   function updateToken(t: string) {
     localStorage.setItem("token", t);
-    setToken(t);
+    window.location.reload();
   }
 
   return (
-    <JWTContext.Provider key={token} value={{ setToken: updateToken }}>
+    <JWTContext.Provider value={{ setToken: updateToken }}>
       {children}
     </JWTContext.Provider>
   );
