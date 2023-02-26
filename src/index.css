@@ -40,3 +40,7 @@ a:visited {
   padding: 24px !important;
   border-radius: 16px !important;
 }
+
+#walktour-portal {
+  background: rgba(0,0,0,.3)
+}
