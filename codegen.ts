@@ -1,8 +1,7 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 import * as dotenv from "dotenv";
 
-const CODEGEN_GRAPHQL_SCHEMA_URL =
-  "https://anton.sch.bme.hu/parkhouse/api/graphql";
+const CODEGEN_GRAPHQL_SCHEMA_URL = "https://parkhouse.chazebot.com/graphql";
 
 const config: CodegenConfig = {
   overwrite: true,

@@ -24,7 +24,17 @@ export function MenuItem({
 
 export function MobileMenu() {
   return (
-    <Stack direction="row" height={64} sx={{ backgroundColor: "#171717" }}>
+    <Stack
+      direction="row"
+      height={64}
+      sx={{
+        backgroundColor: "#171717",
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
+    >
       <NavLink to="/pwa/home" style={{ width: "100%" }}>
         {({ isActive }) => (
           <MenuItem

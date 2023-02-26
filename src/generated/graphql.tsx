@@ -50,6 +50,7 @@ export type Mutation = {
   __typename: 'Mutation';
   addCar: Car;
   buyGameCar?: Maybe<Scalars['Boolean']>;
+  cancelReservation?: Maybe<Scalars['Boolean']>;
   cancelResignation?: Maybe<Scalars['Boolean']>;
   changeReservationStatus: Reservation;
   login: LoginResponse;
@@ -70,6 +71,11 @@ export type MutationAddCarArgs = {
 
 export type MutationBuyGameCarArgs = {
   gameCarId: Scalars['ID'];
+};
+
+
+export type MutationCancelReservationArgs = {
+  reservationId: Scalars['ID'];
 };
 
 
@@ -304,6 +310,20 @@ export type ParkingLevelQueryVariables = Exact<{
 
 
 export type ParkingLevelQuery = { __typename: 'Query', level: { __typename: 'Level', id: string, label: string, spaces: Array<{ __typename: 'ParkingSpace', id: string, label: string, currentStatus: ParkingSpaceStatus, owner?: { __typename: 'User', name: string, selectedGameCar?: { __typename: 'GameCar', image: string } | null } | null, reservations?: Array<{ __typename: 'Reservation', user: { __typename: 'User', selectedGameCar?: { __typename: 'GameCar', image: string } | null } }> | null }> } };
+
+export type CancelReservationMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type CancelReservationMutation = { __typename: 'Mutation', cancelReservation?: boolean | null };
+
+export type ReservationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ReservationQuery = { __typename: 'Query', reservation: { __typename: 'Reservation', id: string, date: any, parkingSpace: { __typename: 'ParkingSpace', id: string, label: string, level: { __typename: 'Level', label: string } }, car: { __typename: 'Car', licencePlate: string } } };
 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -727,6 +747,83 @@ export function useParkingLevelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type ParkingLevelQueryHookResult = ReturnType<typeof useParkingLevelQuery>;
 export type ParkingLevelLazyQueryHookResult = ReturnType<typeof useParkingLevelLazyQuery>;
 export type ParkingLevelQueryResult = Apollo.QueryResult<ParkingLevelQuery, ParkingLevelQueryVariables>;
+export const CancelReservationDocument = gql`
+    mutation cancelReservation($id: ID!) {
+  cancelReservation(reservationId: $id)
+}
+    `;
+export type CancelReservationMutationFn = Apollo.MutationFunction<CancelReservationMutation, CancelReservationMutationVariables>;
+
+/**
+ * __useCancelReservationMutation__
+ *
+ * To run a mutation, you first call `useCancelReservationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCancelReservationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [cancelReservationMutation, { data, loading, error }] = useCancelReservationMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCancelReservationMutation(baseOptions?: Apollo.MutationHookOptions<CancelReservationMutation, CancelReservationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CancelReservationMutation, CancelReservationMutationVariables>(CancelReservationDocument, options);
+      }
+export type CancelReservationMutationHookResult = ReturnType<typeof useCancelReservationMutation>;
+export type CancelReservationMutationResult = Apollo.MutationResult<CancelReservationMutation>;
+export type CancelReservationMutationOptions = Apollo.BaseMutationOptions<CancelReservationMutation, CancelReservationMutationVariables>;
+export const ReservationDocument = gql`
+    query reservation($id: ID!) {
+  reservation(id: $id) {
+    id
+    parkingSpace {
+      id
+      label
+      level {
+        label
+      }
+    }
+    date
+    car {
+      licencePlate
+    }
+  }
+}
+    `;
+
+/**
+ * __useReservationQuery__
+ *
+ * To run a query within a React component, call `useReservationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReservationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReservationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useReservationQuery(baseOptions: Apollo.QueryHookOptions<ReservationQuery, ReservationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReservationQuery, ReservationQueryVariables>(ReservationDocument, options);
+      }
+export function useReservationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReservationQuery, ReservationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReservationQuery, ReservationQueryVariables>(ReservationDocument, options);
+        }
+export type ReservationQueryHookResult = ReturnType<typeof useReservationQuery>;
+export type ReservationLazyQueryHookResult = ReturnType<typeof useReservationLazyQuery>;
+export type ReservationQueryResult = Apollo.QueryResult<ReservationQuery, ReservationQueryVariables>;
 export const GetMeDocument = gql`
     query getMe {
   myUser {

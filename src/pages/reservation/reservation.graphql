@@ -1,0 +1,16 @@
+query reservation($id: ID!){
+    reservation(id: $id){
+        id
+        parkingSpace {
+            id
+            label
+            level {
+                label
+            }
+        }
+        date
+        car {
+            licencePlate
+        }
+    }
+}
