@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Container,
   Divider,
   FormControl,
   FormControlLabel,
@@ -67,6 +68,9 @@ export function CarDialog({
           borderTopLeftRadius: 12,
           borderTopRightRadius: 12,
           height: "70vh",
+          maxHeight: 500,
+          maxWidth: 350,
+          mx: "auto",
         },
       }}
     >
