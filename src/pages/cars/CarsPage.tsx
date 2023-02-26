@@ -72,7 +72,7 @@ export function CarsPage() {
   }
 
   return (
-    <Stack gap={2} height="100%">
+    <Stack gap={2} height="100%" id="my-cars">
       <Typography variant="h1">🏎 Saját autóim</Typography>
       {data?.myUser.cars.map((car) => (
         <SectionRow
@@ -84,6 +84,7 @@ export function CarsPage() {
         />
       ))}
       <Button
+        id="new-car"
         onClick={handleCreateClick}
         variant="contained"
         color="primary"

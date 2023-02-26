@@ -42,7 +42,7 @@ export function WeeklySchedule() {
   }
 
   return (
-    <Section label="Heti beosztásom">
+    <Section label="Heti beosztásom" id="my-week">
       {week.map((wd, index) => (
         <CheckboxSectionRow
           key={wd.toISOString()}

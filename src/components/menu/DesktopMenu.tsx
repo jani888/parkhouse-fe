@@ -47,7 +47,11 @@ export function DesktopMenu() {
             </>
           )}
         </NavLink>
-        <NavLink to="/parking" style={{ width: 96, position: "relative" }}>
+        <NavLink
+          id="parking-map"
+          to="/parking"
+          style={{ width: 96, position: "relative" }}
+        >
           {({ isActive }) => (
             <>
               <MenuItem
@@ -64,7 +68,11 @@ export function DesktopMenu() {
             </>
           )}
         </NavLink>
-        <NavLink to="/game/garage" style={{ width: 96, position: "relative" }}>
+        <NavLink
+          id="gamification"
+          to="/game/garage"
+          style={{ width: 96, position: "relative" }}
+        >
           {({ isActive }) => (
             <>
               <MenuItem
@@ -81,7 +89,11 @@ export function DesktopMenu() {
             </>
           )}
         </NavLink>
-        <NavLink to="/insights" style={{ width: 96, position: "relative" }}>
+        <NavLink
+          id="insights"
+          to="/insights"
+          style={{ width: 96, position: "relative" }}
+        >
           {({ isActive }) => (
             <>
               <MenuItem
@@ -109,6 +121,7 @@ export function DesktopMenu() {
         alignItems="center"
         gap={1}
         sx={{ backgroundColor: "#272727", borderRadius: 100 }}
+        id="profile-selector"
       >
         <Avatar sx={{ width: 34, height: 34 }} />
         <Typography variant="h4">{data?.myUser.name}</Typography>

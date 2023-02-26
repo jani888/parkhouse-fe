@@ -15,7 +15,7 @@ export function WalktourFooter({
 }: WalktourFooterProps) {
   return (
     <Stack justifyContent="space-between" direction="row" mt={2}>
-      {tourLogic?.stepContent.selector === "#object-list" ? (
+      {tourLogic?.stepContent.selector === "#insights" ? (
         <Button variant="contained" onClick={onSkip}>
           Befejezés
         </Button>

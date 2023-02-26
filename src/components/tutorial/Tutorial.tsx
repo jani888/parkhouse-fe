@@ -42,38 +42,60 @@ export function Tutorial() {
           },
         },
         {
-          selector: "#video-toggle",
-          title: "Toggle video visibility",
-          description: "If you don't want to see the video, you can hide it",
+          selector: "#profile-selector",
+          title: "Profil választás",
+          customDescriptionRenderer(descriotion: string, logic) {
+            return (
+              <>
+                <p>
+                  Az alkalmazás szimulálásához több user profil is elérhető,
+                  Wendy-nek például nincs fix parkoló helye, míg a többieknek
+                  van.
+                </p>
+                <p>
+                  Telefonos nézetben a felhasználó nevére vagy profilképére
+                  kattintva is előhozható ugyanez a menü.
+                </p>
+              </>
+            );
+          },
+          description: "",
         },
         {
-          selector: "#playback-control",
-          title: "Playback control",
-          description: "You can control the simulation here",
-        },
-        {
-          selector: "#speed-selector",
-          title: "Select the simulation speed",
+          selector: "#my-week",
+          title: "Heti beosztásom",
           description:
-            "You can change the simulation speed with this dropdown. 1x means 1 second in the simulation is 1 second in real time",
+            "Ha a felhasználó rendelkezik parkolóhellyel, akkor itt a következő heti beosztását állíthatja be.",
         },
         {
-          selector: "#play-button",
-          title: "Start the simulation",
-          description: "You can start the simulation with this button",
-        },
-        {
-          selector: "#dashboard",
-          title: "Car dashboard",
+          selector: "#my-cars",
+          title: "Saját autóim",
           description:
-            "Here you can see the car's speed and the left and right blind spot sensors. These sensors will blink, when something is in the blind spot.",
+            "Itt láthatod az általad regisztrált autóidat. Ezekkel az autókkal hajthatsz be a parkolóházba.",
         },
         {
-          selector: "#object-list",
-          title: "Select an object",
+          selector: "#new-car",
+          title: "Új autó hozzáadása",
+          description: "Itt vihetsz fel új autót a rendszerbe.",
+        },
+        {
+          selector: "#parking-map",
+          title: "Térkép",
           description:
-            "You can select an object from the list to see its details",
-          closeLabel: "Okay, got it",
+            "Ezen a fülön a parkolóház térképét láthatod. A térkép szintekre van osztva, minden szinten látható a parkolóhelyek aktuális állapota.",
+        },
+        {
+          selector: "#gamification",
+          title: "Játék",
+          description:
+            "A játék fülön az alkalmazásban gyűjtött tokeneket beválthatod játékautókra, amiket a többi felhasználó is lát.",
+        },
+        {
+          selector: "#insights",
+          title: "Statisztikák",
+          description:
+            "A statisztikák fülön a parkolóház főbb adatait és az alkalmazáshasználati kimutatásokat láthasz.",
+          closeLabel: "Rendben, értem.",
         },
       ]}
     />
