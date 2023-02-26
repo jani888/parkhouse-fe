@@ -49,7 +49,7 @@ function LeaderboardItem({
   );
 }
 
-export function GamePage() {
+export function GamePage({ basePath = "/pwa" }: { basePath?: string }) {
   const { tab } = useParams();
   const { data: gameCars } = useGameCarsQuery();
   const { data: myCars } = useMyGameCarsQuery();
@@ -63,7 +63,7 @@ export function GamePage() {
   const navigate = useNavigate();
 
   function setTab(val: string) {
-    navigate("/pwa/game/" + val);
+    navigate(basePath + "/game/" + val);
   }
 
   function handleCarChange(carId: string) {
