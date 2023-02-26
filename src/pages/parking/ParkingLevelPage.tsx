@@ -91,7 +91,8 @@ export function ParkingLevel({
                 backgroundSize: "contain",
                 display: "flex",
                 justifyContent: "center",
-                transform: "rotate(180deg)",
+                transform:
+                  space.currentStatus === "FREE" ? "" : "rotate(180deg)",
                 alignItems: "center",
                 fontWeight: 600,
               }}

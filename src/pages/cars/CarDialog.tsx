@@ -69,7 +69,7 @@ export function CarDialog({
           borderTopRightRadius: 12,
           height: "70vh",
           maxHeight: 500,
-          maxWidth: 350,
+          maxWidth: 400,
           mx: "auto",
         },
       }}

@@ -1,12 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Avatar,
-  Drawer,
-  Icon,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Drawer, IconButton, Stack, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { SectionRow } from "./SectionRow";
 import { useGetMeQuery } from "../../generated/graphql";
@@ -47,8 +40,8 @@ export function ProfileSelector({
         </Typography>
         <SectionRow
           title="Admin"
-          subtitle="Admin"
-          icon={<Typography variant="h1">HJ</Typography>}
+          subtitle="Fix helye: A-100"
+          icon={<Typography variant="h1">A</Typography>}
           onClick={() =>
             selectUser(
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYWRtaW4iLCJuYW1lIjoiQWRtaW4ifSwiaWF0IjoxNjc3MzQwMTkwLCJleHAiOjE2Nzg2MzYxOTB9.clY9jGEGtEdwYm4Mck9vERe0nuM9vlJP51M7_1Jk68o"
@@ -57,8 +50,9 @@ export function ProfileSelector({
         />
         <SectionRow
           title="Wendy"
-          subtitle="Wendy Williams"
-          icon={<Typography variant="h1">HJ</Typography>}
+          subtitle="Nincs fix helye"
+          icon={<Typography variant="h1">W</Typography>}
+          color={"primary.dark"}
           onClick={() =>
             selectUser(
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMjYxYTdiOWEtMmE1ZC00NzBkLThlOWYtOTg0YzA1MmZlYWMxIiwibmFtZSI6IldlbmR5In0sImlhdCI6MTY3NzM2Nzg4NywiZXhwIjoxNjc4NjYzODg3fQ.83D2V_9IMDFI6MrTwKhkHiIHDxG_rGtP-ZR-Y-MN4H4"
@@ -67,8 +61,8 @@ export function ProfileSelector({
         />
         <SectionRow
           title="Samanta"
-          subtitle="Samanta Szabó"
-          icon={<Typography variant="h1">HJ</Typography>}
+          subtitle="Fix helye: A-108"
+          icon={<Typography variant="h1">S</Typography>}
           onClick={() =>
             selectUser(
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZGI0NTQ2YmEtMTZhMC00Zjc3LTllNTMtOThkY2Y0YzBhZDUxIiwibmFtZSI6IlNhbWFudGEifSwiaWF0IjoxNjc3MzY3Njc2LCJleHAiOjE2Nzg2NjM2NzZ9.MAolsQhZnGyaqkhhsLqiUyErj4nFa-0bBsASKK_fYT8"
