@@ -15,13 +15,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMutation } from "@apollo/client";
 import {
   MyReservationsDocument,
   ReservationType,
   useFreeSpacesQuery,
   useMakeReservationMutation,
-  useMakeResignationMutation,
   useMyCarsQuery,
 } from "../../generated/graphql";
 
@@ -188,12 +186,12 @@ export function ReservationDialog({
               <FormControlLabel
                 value="today"
                 control={<Radio />}
-                label="Ma (02.25)"
+                label="Ma (02.26)"
               />
               <FormControlLabel
                 value="tomorrow"
                 control={<Radio />}
-                label="Holnap (02.26)"
+                label="Holnap (02.27)"
               />
               <FormControlLabel
                 value="custom"

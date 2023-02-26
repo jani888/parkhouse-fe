@@ -7,10 +7,12 @@ export function SectionRow({
   title,
   subtitle,
   icon,
+  color,
   onClick,
 }: {
   title: string;
   subtitle: string;
+  color?: string;
   icon: JSX.Element;
   onClick(): void;
 }) {
@@ -22,7 +24,7 @@ export function SectionRow({
       gap={2}
       sx={{ borderRadius: 4, width: "100%", border: "1px solid #595959", p: 1 }}
     >
-      <BlueSquare>{icon}</BlueSquare>
+      <BlueSquare color={color}>{icon}</BlueSquare>
       <Stack direction="column" width="100%" textAlign="left">
         <Typography variant="h4">{title}</Typography>
         <Typography variant="h5">{subtitle}</Typography>

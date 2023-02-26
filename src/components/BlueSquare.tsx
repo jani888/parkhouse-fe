@@ -3,9 +3,11 @@ import React from "react";
 
 export function BlueSquare({
   children,
+  color,
   size = "medium",
 }: {
   children: JSX.Element;
+  color?: string;
   size?: "large" | "medium";
 }) {
   return (
@@ -18,7 +20,7 @@ export function BlueSquare({
         width: size === "medium" ? 64 : 128,
         height: size === "medium" ? 64 : 128,
         borderRadius: 3,
-        backgroundColor: "primary.main",
+        backgroundColor: color ?? "primary.main",
       }}
     >
       {children}
